@@ -106,8 +106,8 @@ rfc7230QuotedPair' :: [Char]
 rfc7230QuotedPair' = rfc5324Wsp' <> rfc5234VChar' <> rfc7230ObsText'
 
 -- | O(1).  Return 'True' if given 'Word8' is a member of given 'BitSetWord8'.
-member :: Word8 -> BitSetWord8 -> Bool
-member w (BitSetWord8 bs) = testBit (index bs (fromIntegral (w `div` 8))) (fromIntegral (w `mod` 8))
+member :: BitSetWord8 -> Word8 -> Bool
+member (BitSetWord8 bs) w = testBit (index bs (fromIntegral (w `div` 8))) (fromIntegral (w `mod` 8))
 
 -- | Convert given list of 'Char' into 'Set' of 'Word8'.  Any 'Char' having code point greater than 0xff is ignored.
 toWord8Set :: [Char] -> Set.Set Word8
