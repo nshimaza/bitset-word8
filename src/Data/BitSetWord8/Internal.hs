@@ -91,7 +91,7 @@ rfc3986UriReference' = rfc3986Reserved' <> rfc3986Unreserved' <> ['%']
 -- | tchar of RFC7230 in 'Char' list.
 rfc7230TChar' :: [Char]
 rfc7230TChar' = [ '!', '#', '$', '%', '&', '\'', '*', '+', '-', '.', '^', '_', '`', '|', '~' ]
-    <> rfc5234HexDig' <> rfc5234Alpha'
+    <> rfc5234Digit' <> rfc5234Alpha'
 
 -- | obs-text of RFC7230 in 'Char' list.
 rfc7230ObsText' :: [Char]
