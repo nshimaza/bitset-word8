@@ -1,7 +1,7 @@
 name:                bitset-word8
 version:             0.1.0.0
 synopsis:            Space efficient set of Word8 and some pre-canned sets useful for parsing HTTP
-description:         This packaged is intended to provide O(1) membership test on any subset of ASCII
+description:         This package is intended to provide O(1) membership test on any subset of ASCII
                      and Latin-1 character set in order to write efficient HTTP related parser.
 homepage:            https://github.com/nshimaza/bitset-word8#readme
 license:             MIT

@@ -5,7 +5,7 @@
 [![Hackage](https://img.shields.io/hackage/v/bitset-word8.svg?style=flat)](https://hackage.haskell.org/package/bitset-word8)
 
 Space efficient set of `Word8` and some pre-canned sets useful for parsing HTTP related `ByteString`.
-This packaged is intended to provide O(1) membership test on any subset of ASCII and Latin-1 character set
+This package is intended to provide O(1) membership test on any subset of ASCII and Latin-1 character set
 in order to write efficient HTTP related parser.
 
 ### Creating your own set
