@@ -26,3 +26,13 @@ import Language.Haskell.TH.Syntax (Lift, lift)
 myPreEvaluatedCharSet :: BitSetWord8
 myPreEvaluatedCharSet = $(lift myCharSet)
 ```
+
+### Example Usage
+
+```haskell
+import Data.Attoparsec.ByteString
+
+-- | Parse RFC7230 token.
+token :: Parser ByteString
+token = takeWhile1 (member rfc7230TChar)
+```
