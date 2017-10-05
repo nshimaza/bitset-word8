@@ -20,7 +20,7 @@ import           Data.Bits                  (setBit, shiftR, testBit)
 import           Data.ByteString            (ByteString, index, pack, zipWith)
 import           Data.Char                  (chr, ord)
 import           Data.List                  (foldl', splitAt)
-import           Data.Monoid                ((<>))
+import           Data.Semigroup             ((<>))
 import qualified Data.Set                   as Set (Set, fromList, member)
 import           Data.Word                  (Word8)
 import           Instances.TH.Lift
