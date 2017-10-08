@@ -3,6 +3,8 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-brightgreen.svg)](https://opensource.org/licenses/MIT)
 [![Build Status](https://travis-ci.org/nshimaza/bitset-word8.svg?branch=master)](https://travis-ci.org/nshimaza/bitset-word8)
 [![Hackage](https://img.shields.io/hackage/v/bitset-word8.svg?style=flat)](https://hackage.haskell.org/package/bitset-word8)
+[![Stackage Nightly](http://stackage.org/package/bitset-word8/badge/nightly)](http://stackage.org/nightly/package/bitset-word8)
+[![Stackage LTS](http://stackage.org/package/bitset-word8/badge/lts)](http://stackage.org/lts/package/bitset-word8)
 
 Space efficient set of `Word8` and some pre-canned sets useful for parsing HTTP related `ByteString`.
 This package is intended to provide O(1) membership test on any subset of ASCII and Latin-1 character set
