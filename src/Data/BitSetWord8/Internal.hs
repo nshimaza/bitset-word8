@@ -10,25 +10,26 @@ Space efficient set of 'Word8' and some pre-canned sets useful for parsing HTTP 
 This file contains additional useful character sets but they aren't evaluated at compile time.
 -}
 
-{-# LANGUAGE DeriveLift #-}
+{-# LANGUAGE DeriveLift    #-}
+{-# LANGUAGE MagicHash     #-}
+{-# LANGUAGE UnboxedTuples #-}
 
 module Data.BitSetWord8.Internal where
 
-import           Prelude                    hiding (zipWith)
-
 import           Data.Bits                  (setBit, shiftR, testBit)
-import           Data.ByteString            (ByteString, index, pack, zipWith)
 import           Data.Char                  (chr, ord)
 import           Data.List                  (foldl', splitAt)
 import           Data.Semigroup             ((<>))
 import qualified Data.Set                   as Set (Set, fromList, member)
-import           Data.Word                  (Word8)
+import           Data.Word                  (Word8, Word64)
 import           Instances.TH.Lift
 import           Language.Haskell.TH.Syntax (Lift)
 
 
 -- | Bitwise set of Word8.  Space efficient backend and O(1) membership test.
-newtype BitSetWord8 = BitSetWord8 ByteString deriving (Eq, Lift, Show)
+data BitSetWord8 = BitSetWord8 {-# UNPACK #-} !Word64 {-# UNPACK #-} !Word64
+                               {-# UNPACK #-} !Word64 {-# UNPACK #-} !Word64
+    deriving (Eq, Lift, Show)
 
 -- | DIGIT of RFC5324 in 'Char' list.
 rfc5234Digit' :: [Char]
@@ -107,7 +108,13 @@ rfc7230QuotedPair' = rfc5324Wsp' <> rfc5234VChar' <> rfc7230ObsText'
 
 -- | O(1).  Return 'True' if given 'Word8' is a member of given 'BitSetWord8'.
 member :: BitSetWord8 -> Word8 -> Bool
-member (BitSetWord8 bs) w = testBit (index bs (fromIntegral (w `div` 8))) (fromIntegral (w `mod` 8))
+member bitSet val = doMember bitSet (val `div` 64) (val `mod` 64)
+  where
+    doMember :: BitSetWord8 -> Word8 -> Word8 -> Bool
+    doMember (BitSetWord8 w _ _ _) 0 ind = testBit w (fromIntegral ind)
+    doMember (BitSetWord8 _ w _ _) 1 ind = testBit w (fromIntegral ind)
+    doMember (BitSetWord8 _ _ w _) 2 ind = testBit w (fromIntegral ind)
+    doMember (BitSetWord8 _ _ _ w) 3 ind = testBit w (fromIntegral ind)
 
 -- | Convert given list of 'Char' into 'Set' of 'Word8'.  Any 'Char' having code point greater than 0xff is ignored.
 toWord8Set :: [Char] -> Set.Set Word8
@@ -117,17 +124,20 @@ toWord8Set = Set.fromList . map fromIntegral . filter (<= fromIntegral (maxBound
 toBoolList :: Set.Set Word8 -> [Bool]
 toBoolList wSet = map (\w -> Set.member w wSet) [0..0xff]
 
--- | Pack 8 of boolean list into single 'Word8' bitwise set.
-toWord8 :: [Bool] -> Word8
-toWord8 = foldl' (\a e -> let aL = shiftR a 1 in if e == True then setBit aL 7 else aL) 0
+-- | Pack 64 of boolean list into single 'Word64' bitwise set.
+toWord64 :: [Bool] -> Word64
+toWord64 = foldl' (\a e -> let aL = shiftR a 1 in if e == True then setBit aL 63 else aL) 0
 
--- | Convert full filled boolean list into 32 packed 'Word8' list.
-toWord8List :: [Bool] -> [Word8]
-toWord8List [] = []
-toWord8List bs = let (bs8, rest) = splitAt 8 bs in toWord8 bs8 : toWord8List rest
+-- | Convert full filled boolean list into 4 packed 'Word64' list.
+toWord64List :: [Bool] -> [Word64]
+toWord64List [] = []
+toWord64List bs = let (bs64, rest) = splitAt 64 bs in toWord64 bs64 : toWord64List rest
 
--- | Convert given List of 'Char' into packed bitwise set of Word8.
---   Any 'Char' having code point greater than 0xff is ignored.
+{-
+    Convert given List of 'Char' into packed bitwise set of Word64.
+    Any 'Char' having code point greater than 0xff is ignored.
+-}
 fromList :: [Char] -> BitSetWord8
-fromList = BitSetWord8 . pack . toWord8List . toBoolList . toWord8Set
-
+fromList cs = BitSetWord8 w0 w1 w2 w3
+  where
+    (w0:w1:w2:w3:_) = toWord64List . toBoolList . toWord8Set $ cs

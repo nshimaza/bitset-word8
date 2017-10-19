@@ -21,7 +21,6 @@ library
                      , Data.BitSetWord8.CharSets
                      , Data.BitSetWord8.Internal
   build-depends:       base >= 4.7 && < 5
-                     , bytestring
                      , containers
                      , template-haskell
                      , th-lift-instances

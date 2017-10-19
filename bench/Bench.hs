@@ -12,28 +12,6 @@ import           Data.Word           (Word64, Word8)
 import           GHC.Generics        (Generic)
 
 {-
-    ByteString backend
--}
-newtype BitSetWord8ByteString = BitSetWord8ByteString ByteString deriving (Eq, Generic, NFData, Show)
-
-memberByteString :: BitSetWord8ByteString -> Word8 -> Bool
-memberByteString (BitSetWord8ByteString bs) w = testBit (index bs (fromIntegral (w `div` 8))) (fromIntegral (w `mod` 8))
-
-allZeroByteString :: BitSetWord8ByteString
-allZeroByteString = force $ BitSetWord8ByteString $ pack [ 0,0,0,0,0,0,0,0
-                                                         , 0,0,0,0,0,0,0,0
-                                                         , 0,0,0,0,0,0,0,0
-                                                         , 0,0,0,0,0,0,0,0
-                                                         ]
-
-allOneByteString :: BitSetWord8ByteString
-allOneByteString = force $ BitSetWord8ByteString $ pack [ 0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff
-                                                        , 0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff
-                                                        , 0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff
-                                                        , 0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff
-                                                        ]
-
-{-
     Unboxed Word64 backend
 -}
 data BitSetWord8Word64 = BitSetWord8Word64 {-# UNPACK #-} !Word64
@@ -56,6 +34,64 @@ allZeroWord64 = force $ BitSetWord8Word64 0 0 0 0
 
 allOneWord64 :: BitSetWord8Word64
 allOneWord64 = force $ BitSetWord8Word64 maxBound maxBound maxBound maxBound
+
+{-
+    ByteString backend
+-}
+newtype BitSetWord8ByteString = BitSetWord8ByteString ByteString deriving (Eq, Generic, NFData, Show)
+
+memberByteString :: BitSetWord8ByteString -> Word8 -> Bool
+memberByteString (BitSetWord8ByteString bs) w = testBit (index bs (fromIntegral (w `div` 8))) (fromIntegral (w `mod` 8))
+
+allZeroByteString :: BitSetWord8ByteString
+allZeroByteString = force $ BitSetWord8ByteString $ pack [ 0,0,0,0,0,0,0,0
+                                                         , 0,0,0,0,0,0,0,0
+                                                         , 0,0,0,0,0,0,0,0
+                                                         , 0,0,0,0,0,0,0,0
+                                                         ]
+
+allOneByteString :: BitSetWord8ByteString
+allOneByteString = force $ BitSetWord8ByteString $ pack [ 0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff
+                                                        , 0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff
+                                                        , 0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff
+                                                        , 0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff
+                                                        ]
+
+{-
+    Vector of Word64 backend
+-}
+newtype BitSetWord8Vector64 = BitSetWord8Vector64 (Vector Word64) deriving (Eq, Generic, NFData, Show)
+
+memberVector64 :: BitSetWord8Vector64 -> Word8 -> Bool
+memberVector64 (BitSetWord8Vector64 v) w = testBit (v ! (fromIntegral (w `div` 64))) (fromIntegral (w `mod` 64))
+
+allZeroVector64 :: BitSetWord8Vector64
+allZeroVector64 = force $ BitSetWord8Vector64 $ fromList [ 0,0,0,0 ]
+
+allOneVector64 :: BitSetWord8Vector64
+allOneVector64 = force $ BitSetWord8Vector64 $ fromList [ maxBound, maxBound, maxBound, maxBound ]
+
+{-
+    Vector of Word8 backend
+-}
+newtype BitSetWord8Vector8 = BitSetWord8Vector8 (Vector Word8) deriving (Eq, Generic, NFData, Show)
+
+memberVector8 :: BitSetWord8Vector8 -> Word8 -> Bool
+memberVector8 (BitSetWord8Vector8 v) w = testBit (v ! (fromIntegral (w `div` 8))) (fromIntegral (w `mod` 8))
+
+allZeroVector8 :: BitSetWord8Vector8
+allZeroVector8 = force $ BitSetWord8Vector8 $ fromList [ 0,0,0,0,0,0,0,0
+                                                       , 0,0,0,0,0,0,0,0
+                                                       , 0,0,0,0,0,0,0,0
+                                                       , 0,0,0,0,0,0,0,0
+                                                       ]
+
+allOneVector8 :: BitSetWord8Vector8
+allOneVector8 = force $ BitSetWord8Vector8 $ fromList [ 0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff
+                                                      , 0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff
+                                                      , 0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff
+                                                      , 0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff
+                                                      ]
 
 {-
     Unboxed Word8 backend
@@ -123,42 +159,6 @@ allOneWord8 = force $ BitSetWord8Word8 0xff 0xff 0xff 0xff 0xff 0xff 0xff 0xff
                                        0xff 0xff 0xff 0xff 0xff 0xff 0xff 0xff
                                        0xff 0xff 0xff 0xff 0xff 0xff 0xff 0xff
                                        0xff 0xff 0xff 0xff 0xff 0xff 0xff 0xff
-
-{-
-    Vector of Word64 backend
--}
-newtype BitSetWord8Vector64 = BitSetWord8Vector64 (Vector Word64) deriving (Eq, Generic, NFData, Show)
-
-memberVector64 :: BitSetWord8Vector64 -> Word8 -> Bool
-memberVector64 (BitSetWord8Vector64 v) w = testBit (v ! (fromIntegral (w `div` 64))) (fromIntegral (w `mod` 64))
-
-allZeroVector64 :: BitSetWord8Vector64
-allZeroVector64 = force $ BitSetWord8Vector64 $ fromList [ 0,0,0,0 ]
-
-allOneVector64 :: BitSetWord8Vector64
-allOneVector64 = force $ BitSetWord8Vector64 $ fromList [ maxBound, maxBound, maxBound, maxBound ]
- 
-{-
-    Vector of Word8 backend
--}
-newtype BitSetWord8Vector8 = BitSetWord8Vector8 (Vector Word8) deriving (Eq, Generic, NFData, Show)
-
-memberVector8 :: BitSetWord8Vector8 -> Word8 -> Bool
-memberVector8 (BitSetWord8Vector8 v) w = testBit (v ! (fromIntegral (w `div` 8))) (fromIntegral (w `mod` 8))
-
-allZeroVector8 :: BitSetWord8Vector8
-allZeroVector8 = force $ BitSetWord8Vector8 $ fromList [ 0,0,0,0,0,0,0,0
-                                                       , 0,0,0,0,0,0,0,0
-                                                       , 0,0,0,0,0,0,0,0
-                                                       , 0,0,0,0,0,0,0,0
-                                                       ]
-
-allOneVector8 :: BitSetWord8Vector8
-allOneVector8 = force $ BitSetWord8Vector8 $ fromList [ 0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff
-                                                      , 0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff
-                                                      , 0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff
-                                                      , 0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff
-                                                      ]
 
 main :: IO ()
 main = defaultMain
