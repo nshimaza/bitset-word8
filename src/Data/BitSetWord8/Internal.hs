@@ -133,7 +133,7 @@ toWord64List :: [Bool] -> [Word64]
 toWord64List [] = []
 toWord64List bs = let (bs64, rest) = splitAt 64 bs in toWord64 bs64 : toWord64List rest
 
-{-
+{- |
     Convert given List of 'Char' into packed bitwise set of Word64.
     Any 'Char' having code point greater than 0xff is ignored.
 -}
