@@ -1,7 +1,5 @@
 {-# LANGUAGE DeriveAnyClass #-}
 {-# LANGUAGE DeriveGeneric  #-}
-{-# LANGUAGE MagicHash      #-}
-{-# LANGUAGE UnboxedTuples  #-}
 
 import           Control.DeepSeq     (NFData, force)
 import           Criterion.Main
@@ -63,7 +61,7 @@ allOneByteString = force $ BitSetWord8ByteString $ pack [ 0xff,0xff,0xff,0xff,0x
 newtype BitSetWord8Vector64 = BitSetWord8Vector64 (Vector Word64) deriving (Eq, Generic, NFData, Show)
 
 memberVector64 :: BitSetWord8Vector64 -> Word8 -> Bool
-memberVector64 (BitSetWord8Vector64 v) w = testBit (v ! (fromIntegral (w `div` 64))) (fromIntegral (w `mod` 64))
+memberVector64 (BitSetWord8Vector64 v) w = testBit (v ! fromIntegral (w `div` 64)) (fromIntegral (w `mod` 64))
 
 allZeroVector64 :: BitSetWord8Vector64
 allZeroVector64 = force $ BitSetWord8Vector64 $ fromList [ 0,0,0,0 ]
@@ -77,7 +75,7 @@ allOneVector64 = force $ BitSetWord8Vector64 $ fromList [ maxBound, maxBound, ma
 newtype BitSetWord8Vector8 = BitSetWord8Vector8 (Vector Word8) deriving (Eq, Generic, NFData, Show)
 
 memberVector8 :: BitSetWord8Vector8 -> Word8 -> Bool
-memberVector8 (BitSetWord8Vector8 v) w = testBit (v ! (fromIntegral (w `div` 8))) (fromIntegral (w `mod` 8))
+memberVector8 (BitSetWord8Vector8 v) w = testBit (v ! fromIntegral (w `div` 8)) (fromIntegral (w `mod` 8))
 
 allZeroVector8 :: BitSetWord8Vector8
 allZeroVector8 = force $ BitSetWord8Vector8 $ fromList [ 0,0,0,0,0,0,0,0

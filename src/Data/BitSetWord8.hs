@@ -40,8 +40,6 @@ token = takeWhile1 (member rfc7230TChar)
 @
 -}
 
-{-# LANGUAGE DeriveLift         #-}
-
 module Data.BitSetWord8
     (
     -- * Types

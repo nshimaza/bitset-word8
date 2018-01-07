@@ -11,8 +11,6 @@ This file contains additional useful character sets but they aren't evaluated at
 -}
 
 {-# LANGUAGE DeriveLift    #-}
-{-# LANGUAGE MagicHash     #-}
-{-# LANGUAGE UnboxedTuples #-}
 
 module Data.BitSetWord8.Internal where
 
