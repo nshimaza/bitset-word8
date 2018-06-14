@@ -10,7 +10,7 @@ Space efficient set of 'Word8' and some pre-canned sets useful for parsing HTTP 
 This file contains additional useful character sets but they aren't evaluated at compile time.
 -}
 
-{-# LANGUAGE DeriveLift    #-}
+{-# LANGUAGE DeriveLift #-}
 
 module Data.BitSetWord8.Internal where
 
@@ -19,7 +19,7 @@ import           Data.Char                  (chr, ord)
 import           Data.List                  (foldl', splitAt)
 import           Data.Semigroup             ((<>))
 import qualified Data.Set                   as Set (Set, fromList, member)
-import           Data.Word                  (Word8, Word64)
+import           Data.Word                  (Word64, Word8)
 import           Language.Haskell.TH.Syntax (Lift)
 
 
@@ -140,10 +140,10 @@ fromList = fromWord64List . toWord64List . toBoolList . toWord8Set
   where
     -- Convert 4 packed 'Word64' list into single 'BitSetWord8'
     fromWord64List :: [Word64] -> BitSetWord8
-    fromWord64List (w0:w1:w2:w3:_)  = BitSetWord8 w0 w1 w2 w3
-    fromWord64List [_, _, _]        = raiseError
-    fromWord64List [_, _]           = raiseError
-    fromWord64List [_]              = raiseError
-    fromWord64List []               = raiseError
+    fromWord64List (w0:w1:w2:w3:_) = BitSetWord8 w0 w1 w2 w3
+    fromWord64List [_, _, _]       = raiseError
+    fromWord64List [_, _]          = raiseError
+    fromWord64List [_]             = raiseError
+    fromWord64List []              = raiseError
 
     raiseError      = error "Impossible happen.  Arg of fromList must be converted to 4 elements list."

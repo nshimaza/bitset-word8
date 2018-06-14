@@ -73,5 +73,5 @@ module Data.BitSetWord8
     , member
     ) where
 
-import Data.BitSetWord8.Internal
-import Data.BitSetWord8.CharSets
+import           Data.BitSetWord8.CharSets
+import           Data.BitSetWord8.Internal
