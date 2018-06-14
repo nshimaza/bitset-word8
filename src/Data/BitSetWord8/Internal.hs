@@ -20,7 +20,6 @@ import           Data.List                  (foldl', splitAt)
 import           Data.Semigroup             ((<>))
 import qualified Data.Set                   as Set (Set, fromList, member)
 import           Data.Word                  (Word8, Word64)
-import           Instances.TH.Lift
 import           Language.Haskell.TH.Syntax (Lift)
 
 
@@ -113,6 +112,7 @@ member bitSet val = doMember bitSet (val `div` 64) (val `mod` 64)
     doMember (BitSetWord8 _ w _ _) 1 ind = testBit w (fromIntegral ind)
     doMember (BitSetWord8 _ _ w _) 2 ind = testBit w (fromIntegral ind)
     doMember (BitSetWord8 _ _ _ w) 3 ind = testBit w (fromIntegral ind)
+    doMember _                     _ _   = error "Impossible happen.  Word8 `dev` 64 cannot be greater than 3."
 
 -- | Convert given list of 'Char' into 'Set' of 'Word8'.  Any 'Char' having code point greater than 0xff is ignored.
 toWord8Set :: [Char] -> Set.Set Word8
@@ -136,6 +136,14 @@ toWord64List bs = let (bs64, rest) = splitAt 64 bs in toWord64 bs64 : toWord64Li
     Any 'Char' having code point greater than 0xff is ignored.
 -}
 fromList :: [Char] -> BitSetWord8
-fromList cs = BitSetWord8 w0 w1 w2 w3
+fromList = fromWord64List . toWord64List . toBoolList . toWord8Set
   where
-    (w0:w1:w2:w3:_) = toWord64List . toBoolList . toWord8Set $ cs
+    -- Convert 4 packed 'Word64' list into single 'BitSetWord8'
+    fromWord64List :: [Word64] -> BitSetWord8
+    fromWord64List (w0:w1:w2:w3:_)  = BitSetWord8 w0 w1 w2 w3
+    fromWord64List [_, _, _]        = raiseError
+    fromWord64List [_, _]           = raiseError
+    fromWord64List [_]              = raiseError
+    fromWord64List []               = raiseError
+
+    raiseError      = error "Impossible happen.  Arg of fromList must be converted to 4 elements list."

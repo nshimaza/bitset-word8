@@ -20,7 +20,7 @@ module Data.BitSetWord8.CharSets
     , rfc7230QuotedPair
     ) where
 
-import           Language.Haskell.TH.Syntax (Lift, lift)
+import           Language.Haskell.TH.Syntax (lift)
 
 import           Data.BitSetWord8.Internal
 
@@ -39,6 +39,3 @@ rfc7230QDText = $(lift $ fromList rfc7230QDText')
 -- | quoted-string of RFC7230 in BitSetWord8.  Evaluated at compile time.
 rfc7230QuotedPair :: BitSetWord8
 rfc7230QuotedPair = $(lift $ fromList rfc7230QuotedPair')
-
-
-
