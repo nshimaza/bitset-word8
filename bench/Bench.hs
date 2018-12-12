@@ -5,7 +5,7 @@ import           Control.DeepSeq     (NFData, force)
 import           Criterion.Main
 import           Data.Bits           (testBit)
 import           Data.ByteString     (ByteString, index, pack)
-import           Data.Vector.Unboxed (Vector (..), fromList, (!))
+import           Data.Vector.Unboxed (Vector, fromList, (!))
 import           Data.Word           (Word64, Word8)
 import           GHC.Generics        (Generic)
 
