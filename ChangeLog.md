@@ -1,3 +1,7 @@
+## Bitset-word8 0.1.1.1
+
+* Move to hpack from hand written cabal project file.
+
 ## Bitset-word8 0.1.1.0
 
 * Changed backend from ByteString to unboxed Word64 based on benchmark result.
