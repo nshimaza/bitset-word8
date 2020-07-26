@@ -1,3 +1,7 @@
+## Bitset-word8 0.1.1.2
+
+* Include .cabal file in source repo.
+
 ## Bitset-word8 0.1.1.1
 
 * Move to hpack from hand written cabal project file.
