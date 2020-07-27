@@ -12,12 +12,16 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        ghc: ['8.8', '8.10']
-        cabal: ['3.0', '3.2']
+        ghc: ['8.6', '8.8', '8.10']
+        cabal: ['2.4', '3.0', '3.2']
         os: [ubuntu-latest]
         exclude:
           - ghc: 8.10
             cabal: 3.0
+          - ghc: 8.10
+            cabal: 2.4
+          - ghc: 8.8
+            cabal: 2.4
 
     name: Haskell GHC ${{ matrix.ghc }}
     steps:
