@@ -43,6 +43,8 @@ tests:
     - -threaded
     - -rtsopts
     - -with-rtsopts=-N
+    build-tools:
+    - hspec-discover
     dependencies:
     - bitset-word8
     - hspec
