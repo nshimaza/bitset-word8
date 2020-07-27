@@ -17,10 +17,7 @@ jobs:
         cabal: ['2.4', '3.0', '3.2']
         exclude:
           - os: windows-latest
-            ghc: 8.6
-          - os: windows-latest
             ghc: 8.8
-            cabal: 3.2
           - ghc: 8.10
             cabal: 3.0
           - ghc: 8.10
