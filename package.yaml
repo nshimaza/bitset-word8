@@ -12,7 +12,7 @@ extra-source-files:
 
 # Metadata used when publishing your package
 synopsis:            Space efficient set of Word8 and some pre-canned sets useful for parsing HTTP
-category:            Concurrency
+category:            Data
 
 # To avoid duplicated efforts in documentation and dealing with the
 # complications of embedding Haddock markup inside cabal files, it is
