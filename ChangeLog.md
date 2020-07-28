@@ -1,6 +1,8 @@
 ## Bitset-word8 0.1.1.2
 
 * Include .cabal file in source repo.
+* Migrate CI from Travis to GitHub Actions.
+* Build and test for multiple platforms and GHC versions.
 
 ## Bitset-word8 0.1.1.1
 

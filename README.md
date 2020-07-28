@@ -2,7 +2,6 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-brightgreen.svg)](https://opensource.org/licenses/MIT)
 [![Build Status](https://github.com/nshimaza/bitset-word8/workflows/build/badge.svg)](https://github.com/nshimaza/bitset-word8/actions?query=workflow%3Abuild)
-[![Build Status](https://travis-ci.org/nshimaza/bitset-word8.svg?branch=master)](https://travis-ci.org/nshimaza/bitset-word8)
 [![Hackage](https://img.shields.io/hackage/v/bitset-word8.svg?style=flat)](https://hackage.haskell.org/package/bitset-word8)
 [![Stackage Nightly](http://stackage.org/package/bitset-word8/badge/nightly)](http://stackage.org/nightly/package/bitset-word8)
 [![Stackage LTS](http://stackage.org/package/bitset-word8/badge/lts)](http://stackage.org/lts/package/bitset-word8)
