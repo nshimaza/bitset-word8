@@ -8,7 +8,7 @@ name:           bitset-word8
 version:        0.1.1.2
 synopsis:       Space efficient set of Word8 and some pre-canned sets useful for parsing HTTP
 description:    Please see the README on GitHub at <https://github.com/nshimaza/bitset-word8#readme>
-category:       Concurrency
+category:       Data
 homepage:       https://github.com/nshimaza/bitset-word8#readme
 bug-reports:    https://github.com/nshimaza/bitset-word8/issues
 author:         Naoto Shimazaki
@@ -34,7 +34,7 @@ library
       Paths_bitset_word8
   hs-source-dirs:
       src
-  ghc-options: -Wall -Wcompat -Wincomplete-record-updates -Wincomplete-uni-patterns -Wredundant-constraints
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wpartial-fields -Wredundant-constraints
   build-depends:
       base >=4.7 && <5
     , containers
@@ -50,7 +50,7 @@ test-suite bitset-word8-test
       Paths_bitset_word8
   hs-source-dirs:
       test
-  ghc-options: -Wall -Wcompat -Wincomplete-record-updates -Wincomplete-uni-patterns -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
   build-tool-depends:
       hspec-discover:hspec-discover
   build-depends:
@@ -70,7 +70,7 @@ benchmark bitset-word8-bench
       Paths_bitset_word8
   hs-source-dirs:
       bench
-  ghc-options: -Wall -Wcompat -Wincomplete-record-updates -Wincomplete-uni-patterns -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       base >=4.7 && <5
     , bitset-word8

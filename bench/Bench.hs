@@ -26,6 +26,7 @@ memberWord64 bitSet val = doMember bitSet (val `div` 64) (val `mod` 64)
     doMember (BitSetWord8Word64 _ w _ _) 1 ind = testBit w (fromIntegral ind)
     doMember (BitSetWord8Word64 _ _ w _) 2 ind = testBit w (fromIntegral ind)
     doMember (BitSetWord8Word64 _ _ _ w) 3 ind = testBit w (fromIntegral ind)
+    doMember _                           _ _   = error "Impossible happen.  Word8 `dev` 64 cannot be greater than 3."
 
 allZeroWord64 :: BitSetWord8Word64
 allZeroWord64 = force $ BitSetWord8Word64 0 0 0 0
@@ -148,6 +149,7 @@ memberWord8 bitSet val = doMember bitSet (val `div` 8) (val `mod` 8)
     doMember (BitSetWord8Word8 _ _ _ _ _ _ _ _  _ _ _ _ _ _ _ _  _ _ _ _ _ _ _ _  _ _ _ _ _ w _ _) 29 ind = testBit w (fromIntegral ind)
     doMember (BitSetWord8Word8 _ _ _ _ _ _ _ _  _ _ _ _ _ _ _ _  _ _ _ _ _ _ _ _  _ _ _ _ _ _ w _) 30 ind = testBit w (fromIntegral ind)
     doMember (BitSetWord8Word8 _ _ _ _ _ _ _ _  _ _ _ _ _ _ _ _  _ _ _ _ _ _ _ _  _ _ _ _ _ _ _ w) 31 ind = testBit w (fromIntegral ind)
+    doMember _                                                                                     _  _   = error "Impossible happen.  Word8 `dev` 8 cannot be greater than 31."
 
 allZeroWord8 :: BitSetWord8Word8
 allZeroWord8 = force $ BitSetWord8Word8 0 0 0 0 0 0 0 0  0 0 0 0 0 0 0 0  0 0 0 0 0 0 0 0  0 0 0 0 0 0 0 0

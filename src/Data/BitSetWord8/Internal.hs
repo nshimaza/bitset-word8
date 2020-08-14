@@ -16,8 +16,7 @@ module Data.BitSetWord8.Internal where
 
 import           Data.Bits                  (setBit, shiftR, testBit)
 import           Data.Char                  (chr, ord)
-import           Data.List                  (foldl', splitAt)
-import           Data.Semigroup             ((<>))
+import           Data.List                  (foldl')
 import qualified Data.Set                   as Set (Set, fromList, member)
 import           Data.Word                  (Word64, Word8)
 import           Language.Haskell.TH.Syntax (Lift)

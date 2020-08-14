@@ -22,8 +22,10 @@ description:         Please see the README on GitHub at <https://github.com/nshi
 ghc-options:
 - -Wall
 - -Wcompat
+- -Widentities
 - -Wincomplete-record-updates
 - -Wincomplete-uni-patterns
+- -Wpartial-fields
 - -Wredundant-constraints
 
 dependencies:
