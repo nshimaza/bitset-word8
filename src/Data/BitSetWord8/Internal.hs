@@ -119,11 +119,11 @@ toWord8Set = Set.fromList . map fromIntegral . filter (<= fromIntegral (maxBound
 
 -- | Convert 'Set' of Word8 to full filled list of boolean existence flag.
 toBoolList :: Set.Set Word8 -> [Bool]
-toBoolList wSet = map (\w -> Set.member w wSet) [0..0xff]
+toBoolList wSet = map (`Set.member` wSet) [0..0xff]
 
 -- | Pack 64 of boolean list into single 'Word64' bitwise set.
 toWord64 :: [Bool] -> Word64
-toWord64 = foldl' (\a e -> let aL = shiftR a 1 in if e == True then setBit aL 63 else aL) 0
+toWord64 = foldl' (\a e -> let aL = shiftR a 1 in if e then setBit aL 63 else aL) 0
 
 -- | Convert full filled boolean list into 4 packed 'Word64' list.
 toWord64List :: [Bool] -> [Word64]
